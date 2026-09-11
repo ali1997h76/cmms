@@ -15,6 +15,7 @@ import { AuthProvider } from 'src/contexts/JWTAuthContext';
 import { zendeskKey } from './config';
 import { ZendeskProvider } from 'react-use-zendesk';
 import i18n, { supportedLanguages } from 'src/i18n/i18n';
+import { ModuleProvider } from 'src/modules/core';
 
 ReactDOM.render(
   <HelmetProvider>
@@ -22,18 +23,20 @@ ReactDOM.render(
       <meta name="robots" content="noindex, nofollow" />
     </Helmet>
     <Provider store={store}>
-      <SidebarProvider>
-        <TitleProvider>
-          <BrowserRouter>
-            <ScrollTop />
-            <ZendeskProvider apiKey={zendeskKey}>
-              <AuthProvider>
-                <App />
-              </AuthProvider>
-            </ZendeskProvider>
-          </BrowserRouter>
-        </TitleProvider>
-      </SidebarProvider>
+      <ModuleProvider>
+        <SidebarProvider>
+          <TitleProvider>
+            <BrowserRouter>
+              <ScrollTop />
+              <ZendeskProvider apiKey={zendeskKey}>
+                <AuthProvider>
+                  <App />
+                </AuthProvider>
+              </ZendeskProvider>
+            </BrowserRouter>
+          </TitleProvider>
+        </SidebarProvider>
+      </ModuleProvider>
     </Provider>
   </HelmetProvider>,
   document.getElementById('root')

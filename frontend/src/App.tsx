@@ -35,6 +35,9 @@ import { getDateLocale, loadLanguage, supportedLanguages } from './i18n/i18n';
 import MobileAppDownloadDialog from './components/MobileAppDownloadDialog';
 import { useMobileAppPrompt } from './hooks/useMobileAppPrompt';
 
+// Import custom modules
+import { initializeModules } from 'src/modules';
+
 if (!IS_LOCALHOST && googleTrackingId)
   ReactGA.initialize(googleTrackingId, {
     gaOptions: { allowAdPersonalizationSignals: false }
@@ -115,6 +118,11 @@ function App() {
   let location = useLocation();
   const { shouldShowPrompt, dismissPrompt } = useMobileAppPrompt();
   const [dateFnsLocale, setDateFnsLocale] = useState<Locale>(enUS);
+
+  // Initialize custom modules on app startup
+  useEffect(() => {
+    initializeModules();
+  }, []);
 
   useEffect(() => {
     const lang = i18n.language || 'en';
