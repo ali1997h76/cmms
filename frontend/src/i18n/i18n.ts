@@ -20,7 +20,8 @@ import {
   NL,
   CN,
   BA,
-  JP
+  JP,
+  IR
 } from 'country-flag-icons/react/3x2';
 
 // ─── Lazy translation loaders ────────────────────────────────────────────────
@@ -28,6 +29,7 @@ const translationLoaders: Record<string, () => Promise<{ default: object }>> = {
   de: () => import('./translations/de'),
   en: () => import('./translations/en'),
   es: () => import('./translations/es'),
+  fa: () => import('src/modules/persian-localization/i18n/translations/fa'),
   fr: () => import('./translations/fr'),
   pl: () => import('./translations/pl'),
   tr: () => import('./translations/tr'),
@@ -46,6 +48,10 @@ const translationLoaders: Record<string, () => Promise<{ default: object }>> = {
 // ─── Lazy date-fns locale loaders ────────────────────────────────────────────
 const dateLocaleLoaders: Record<string, () => Promise<DateLocale>> = {
   en: () => import('date-fns/locale').then((m) => m.enUS),
+  fa: () =>
+    import('src/modules/persian-localization/i18n/persianLocale').then(
+      (m) => m.persianLocale as unknown as DateLocale
+    ),
   fr: () => import('date-fns/locale').then((m) => m.fr),
   es: () => import('date-fns/locale').then((m) => m.es),
   de: () => import('date-fns/locale').then((m) => m.de),
@@ -173,6 +179,7 @@ export const getCalendarLocale = async (
 export type SupportedLanguage =
   | 'DE'
   | 'EN'
+  | 'FA'
   | 'FR'
   | 'TR'
   | 'ES'
@@ -194,6 +201,7 @@ export const supportedLanguages: {
   Icon: FlagComponent;
 }[] = [
   { code: 'en', label: 'English', Icon: US },
+  { code: 'fa', label: 'فارسی (Persian)', Icon: IR },
   { code: 'fr', label: 'French', Icon: FR },
   { code: 'es', label: 'Spanish', Icon: ES },
   { code: 'de', label: 'German', Icon: DE },
